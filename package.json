@@ -1,0 +1,32 @@
+{
+  "name": "bilibilidanmubot",
+  "version": "1.0.0",
+  "description": "B站集成化工具",
+  "main": "index.js",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "conf": "^9.0.2",
+    "dotenv": "^8.2.0",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/older-fox/bilibiliDanmuBot.git"
+  },
+  "keywords": [
+    "Danmu",
+    "Bilibili",
+    "Bot",
+    "Node.js"
+  ],
+  "author": "OlderFox",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/older-fox/bilibiliDanmuBot/issues"
+  },
+  "homepage": "https://github.com/older-fox/bilibiliDanmuBot#readme"
+}
