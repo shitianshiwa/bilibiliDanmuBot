@@ -44,5 +44,8 @@ module.exports = {
         }else{
             console.log('['+color.red(new Date().toLocaleTimeString())+']'+color.magenta('连接到直播间 ')+color.yellow(roomId)+color.red(' 失败!')+color.magenta(' 归属用户编号:')+color.yellow(owner));
         }
+    },
+    info(message){
+        console.log('['+color.red(new Date().toLocaleTimeString())+']'+color.magenta(message));
     }
 }
