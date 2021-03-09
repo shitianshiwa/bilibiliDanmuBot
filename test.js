@@ -1,16 +1,23 @@
 const config = require('./utils/config')
 const logger = require('./utils/logger')
 const auth = require('./modules/auth')
+const cookie = require('./utils/cookie')
 const getInfo = require ('./modules/getInfo')
+const streamListener =require('./modules/danmuInfo')
+const danmu = require('./modules/sendchat')
 //测试信息获取API
-
-async function test() {
-    const test = await getInfo.getOwnerInfo()
-    console.log(test)
-}
-
 test()
 
+async function test() {
+    await auth.resetEveryThing()
+    await auth.loginPassword()
+    await auth.refreshToken()
+    await auth.refreshCookie()
+    //const test = await danmu(1521498,'AuthSwitchRequestPacket')
+}
+
+//test()
+//streamListener()
 //测试公钥获取
 //auth.refreshToken()
 //auth.checkCookie()

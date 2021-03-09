@@ -3,6 +3,7 @@ const got = require('../utils/got')
 const sign = require ('../utils/sign')
 const logger = require ('../utils/logger')
 const config = require ('../utils/config')
+const fs  = require ('fs')
 
 const getPublicKey = async () => {
     logger.info('正在尝试获取公钥....')
@@ -89,7 +90,7 @@ const  refreshToken = async () => {
     }
 }
 
-const checkCookie = async () => {
+const refreshCookie = async () => {
     logger.info('正在检查Cookie有效性....')
     const body =await getUserInfo()
     if (body.code !== "REPONSE_OK"){
@@ -119,8 +120,20 @@ const getUserInfo = async () => {
     return body
 }
 
+const resetEveryThing = async ()=>{
+    config.set('bilibiliInfo.accessToken','')
+    config.set('bilibiliInfo.refreshToken','')
+        fs.unlink('./.cookie.json',err=>{
+            if(err){
+                logger.debug('删除文件失败,文件可能不存在或无法读写,路径:'+err.path)
+            }
+        })
+}
+
+
 module.exports = {
     loginPassword,
-    checkCookie,
-    refreshToken
+    refreshCookie,
+    refreshToken,
+    resetEveryThing
 }
