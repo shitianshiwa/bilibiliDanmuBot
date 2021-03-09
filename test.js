@@ -1,10 +1,14 @@
 const config = require('./utils/config')
 const logger = require('./utils/logger')
 const auth = require('./modules/auth')
+const getInfo = require ('./modules/getInfo')
+//测试信息获取API
+
+getInfo()
 
 //测试公钥获取
-auth.refreshToken()
-auth.checkCookie()
+//auth.refreshToken()
+//auth.checkCookie()
 
 //测试logger功能及界面
 //logger.debug('测试配置文件输入:数据库密码:'+config.get('databaseInfo.passWord'))
