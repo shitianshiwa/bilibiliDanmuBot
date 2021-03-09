@@ -1,4 +1,5 @@
 const color = require('colors')
+const config = require('./config')
 
 module.exports = {
 
@@ -20,7 +21,9 @@ module.exports = {
         console.log('['+color.red(new Date().toLocaleTimeString())+']'+'天选抽奖开始，奖励'+color.green(award)+'数量'+color.red(award_number));
     },
     debug(message){
-        console.log('['+color.bold(color.red('DEBUG'))+']'+color.yellow(message));
+        if(config.get('configInfo.debug')){
+            console.log('['+color.bold(color.red('DEBUG'))+']'+color.yellow(message));
+        }
     },
     guardBuy(username,guardLevel){
         switch (guardLevel){

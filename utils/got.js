@@ -23,19 +23,13 @@ const _got = got.extend({
     hooks:{
         beforeRequest:[
             options => {
-            if (config.get('configInfo.debug') === true) {
-                logger.debug('Debug HTTP request Method:' + options.method + '  href:' + options.url)
-            }
+            logger.debug('Debug HTTP request Method:' + options.method + '  href:' + options.url)
             }
         ],
        afterResponse:[
            response => {
-            if (config.get('configInfo.debug') === true) {
-                logger.debug('Debug HTTP respond body length:'+ response.rawBody.length)
-            }
-
+            logger.debug('Debug HTTP respond body length:'+ response.rawBody.length)
             return response
-
            }
        ]
     }

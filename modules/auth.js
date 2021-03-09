@@ -50,8 +50,10 @@ const loginPassword = async ()=> {
     })
     if (body.code || body.data.status) {
         logger.info('登录失败,用户名或密码可能错误')
+        logger.debug(`登录失败,HTTP代码:${body.code},HTTP返回内容:${JSON.stringify(body)}`)
     }else {
         logger.info('登录成功完成!')
+        logger.debug(`登录成功完成,HTTP返回内容:${JSON.stringify(body)}`)
         //写入到配置文件中
         config.set('bilibiliInfo.accessToken',body.data.token_info.access_token)
         config.set('bilibiliInfo.refreshToken',body.data.token_info.refresh_token)

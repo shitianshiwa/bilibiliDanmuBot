@@ -4,7 +4,12 @@ const auth = require('./modules/auth')
 const getInfo = require ('./modules/getInfo')
 //测试信息获取API
 
-getInfo()
+async function test() {
+    const test = await getInfo.getOwnerInfo()
+    console.log(test)
+}
+
+test()
 
 //测试公钥获取
 //auth.refreshToken()

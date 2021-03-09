@@ -14,7 +14,7 @@ const sign = data =>{
         platform: 'pc',
         ts: Math.round(Date.now() / 1000),
     };
-    //用途不明，等待解释
+    //合并同类项，data覆盖defaults的相同项目
     data = {
         ...defaults,
         ...data
@@ -27,13 +27,8 @@ const sign = data =>{
     hash = md5(hash+appsecret)
 
     data.sign = hash
-    if (config.get('configInfo.debug') === true ){ //若debug开启则正常输出
-        logger.debug('File:sign.js-hash-output no.1 -data: '+hash)
-    }
-
-    if (config.get('configInfo.debug') === true ){ //若debug开启则正常输出
-        logger.debug('File:sign.js-data-output no.1 -data: '+JSON.stringify(data))
-    }
+    logger.debug('File:sign.js-hash-output no.1 -data: '+hash)
+    logger.debug('File:sign.js-data-output no.1 -data: '+JSON.stringify(data))
     return(data)
 }
 
