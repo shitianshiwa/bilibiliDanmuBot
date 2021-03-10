@@ -5,7 +5,7 @@ const danMu = require('bilibili-live-ws')
 const danMuSrc = require('bilibili-live-ws/src')
 const type = require('typedi')
 
-function init(){
+function connect (){
     const live = new danMuSrc.KeepLiveTCP(config.get('bilibiliInfo.roomId'))
     type.Container.set(danMu.KeepLiveTCP,live)
 
@@ -16,7 +16,13 @@ function init(){
     })
 }
 
-module.exports = init
+function disconnect (){
+    //开发预留
+}
+
+
+exports.connect = connect
+exports.disconnect = disconnect
 
 
 
