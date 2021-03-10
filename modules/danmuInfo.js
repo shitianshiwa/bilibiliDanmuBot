@@ -5,13 +5,13 @@ const danMu = require('bilibili-live-ws')
 const danMuSrc = require('bilibili-live-ws/src')
 const type = require('typedi')
 
-function init(){
+function init() {
     const live = new danMuSrc.KeepLiveTCP(config.get('bilibiliInfo.roomId'))
-    type.Container.set(danMu.KeepLiveTCP,live)
+    type.Container.set(danMu.KeepLiveTCP, live)
 
-    live.on('live',()=> logger.connectToLiveRoom('ok',config.get('bilibiliInfo.roomId'),config.get('streamInfo.owner')))
+    live.on('live', () => logger.connectToLiveRoom('ok', config.get('bilibiliInfo.roomId'), config.get('streamInfo.owner')))
 
-    live.on('DANMU_MSG',async (msg)=>{
+    live.on('DANMU_MSG', async (msg) => {
         await process.danmuJob(msg)
     })
 }
