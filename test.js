@@ -2,20 +2,21 @@ const config = require('./utils/config')
 const logger = require('./utils/logger')
 const auth = require('./modules/auth')
 const cookie = require('./utils/cookie')
-const getInfo = require ('./modules/getInfo')
-const streamListener =require('./modules/danmuInfo')
+const getInfo = require('./modules/getInfo')
+const streamListener = require('./modules/danmuInfo')
 const danmu = require('./modules/sendchat')
 const aiReply = require('./modules/ai')
 //测试信息获取API
 //test()
 streamListener()
-async function init(){
+
+async function init() {
     //streamListener()
 }
 
 
 async function test() {
-    const test = await aiReply.askAi('195909','现在几点了')
+    const test = await aiReply.askAi('195909', '现在几点了')
     //const test = await danmu(1521498,'AuthSwitchRequestPacket')
     console.log(test)
 }
