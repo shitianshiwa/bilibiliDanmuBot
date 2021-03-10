@@ -23,16 +23,17 @@ B站直播互动及数据收集机器人
 
 |plugin      |version  |description   |
 |------------|---------|--------------|
-|Auth        |Coding   |帐号登录组件       |
+|Auth        |21-03-10 |帐号登录组件       |
 |DanmuInfo   |Coding   |弹幕数据记录       |
 |GiftInfo    |Coding   |礼物数据记录       |
 |GuardInfo   |Coding   |上舰数据记录       |
-|NewFollower |Coding   |新粉丝关注跟踪     |
+|NewFollower |21-03-10 |新粉丝关注跟踪     |
 |StreamInfo  |Coding   |直播数据历史记录    |
 |VideoInfo   |Coding   |视频数据历史记录    |
 |QuickSplit  |Coding   |房管弹幕极速切片    |
 |AiReply     |Coding   |AI智能弹幕消息回复  |
-
+|SendChat    |21-03-10 |弹幕发送支持库      |
+|
 
 ## 环境依赖
 

@@ -1,5 +1,6 @@
 const logger = require('../utils/logger')
 const config = require('../utils/config')
+const process = require('./process')
 const danMu = require('bilibili-live-ws')
 const danMuSrc = require('bilibili-live-ws/src')
 const type = require('typedi')
@@ -10,7 +11,9 @@ function init(){
 
     live.on('live',()=> logger.connectToLiveRoom('ok',config.get('bilibiliInfo.roomId'),config.get('streamInfo.owner')))
 
-    live.on('DANMU_MSG',async (msg)=>{console.log(msg)})
+    live.on('DANMU_MSG',async (msg)=>{
+        await process.danmuJob(msg)
+    })
 }
 
 module.exports = init

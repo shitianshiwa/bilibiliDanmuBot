@@ -21,10 +21,8 @@ const getCookieByKey = async (url,key)=>{
      //遍历完毕后检查是否找到结果
     if (result.data !== undefined){
         //若存在内容
-        logger.debug('在cookie中找到了对应结果'+JSON.stringify(result))
         return {code:0,message:'操作成功完成',data:result.data}
     }else {
-        logger.debug('未在cookie中找到任何结果')
         return {code:-1,message:'未在cookie中找到任何结果'}
     }
 }

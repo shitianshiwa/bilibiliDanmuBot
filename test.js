@@ -5,15 +5,19 @@ const cookie = require('./utils/cookie')
 const getInfo = require ('./modules/getInfo')
 const streamListener =require('./modules/danmuInfo')
 const danmu = require('./modules/sendchat')
+const aiReply = require('./modules/ai')
 //测试信息获取API
-test()
+//test()
+streamListener()
+async function init(){
+    //streamListener()
+}
+
 
 async function test() {
-    await auth.resetEveryThing()
-    await auth.loginPassword()
-    await auth.refreshToken()
-    await auth.refreshCookie()
+    const test = await aiReply.askAi('195909','现在几点了')
     //const test = await danmu(1521498,'AuthSwitchRequestPacket')
+    console.log(test)
 }
 
 //test()
