@@ -56,7 +56,7 @@ const loginPassword = async () => {
         //写入到配置文件中
         config.set('bilibiliInfo.accessToken', body.data.token_info.access_token)
         config.set('bilibiliInfo.refreshToken', body.data.token_info.refresh_token)
-        config.set('bilibiliInfo.mid', body.data.token_info.mid)
+        config.set('bilibiliInfo.uid', body.data.token_info.mid)
     }
 }
 

@@ -6,9 +6,14 @@ const getInfo = require('./modules/getInfo')
 const streamListener = require('./modules/danmuInfo')
 const danmu = require('./modules/sendchat')
 const aiReply = require('./modules/ai')
+const sendIm = require ('./modules/biliapi')
 //测试信息获取API
 //test()
-streamListener()
+//streamListener()
+send()
+async function send(){
+    await sendIm.sendImMessage(449905159,'测试消息内容a')
+}
 
 async function init() {
     //streamListener()
