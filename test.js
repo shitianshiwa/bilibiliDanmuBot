@@ -4,26 +4,28 @@ const auth = require('./modules/auth')
 const cookie = require('./utils/cookie')
 const getInfo = require('./modules/getInfo')
 const streamListener = require('./modules/danmuInfo')
-const danmu = require('./modules/sendchat')
+const danmu = require('./modules/biliapi')
 const aiReply = require('./modules/ai')
 const sendIm = require ('./modules/biliapi')
+const process = require ('./modules/process')
 //测试信息获取API
+test()
+async function test (){
+    await process.sendFollowThanks('老狐狸')
+}
+
+
+
+
+
+
 //test()
 //streamListener()
-send()
+//console.log(config.get('autoMessages.onLive').length)
+//send()
+//send()
 async function send(){
-    await sendIm.sendImMessage(449905159,'测试消息内容a')
-}
-
-async function init() {
-    //streamListener()
-}
-
-
-async function test() {
-    const test = await aiReply.askAi('195909', '现在几点了')
-    //const test = await danmu(1521498,'AuthSwitchRequestPacket')
-    console.log(test)
+    await process.sendOnLiveMessage()
 }
 
 //test()

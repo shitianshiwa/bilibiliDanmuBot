@@ -1,5 +1,5 @@
 const got = require('../utils/got')
-const danmu = require('./sendchat')
+const danmu = require('./biliapi')
 const logger = require('../utils/logger')
 
 const askAi = async (sender, message)=>{
