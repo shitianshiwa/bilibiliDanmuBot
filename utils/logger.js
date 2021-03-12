@@ -2,7 +2,12 @@ const color = require('colors')
 const config = require('./config')
 
 module.exports = {
-
+    userJoin(user){
+        console.log('[' + color.red(new Date().toLocaleTimeString()) + `]`+color.cyan(user)+`加入直播间!`)
+    },
+    noticeMsg(message){
+        console.log('[' + color.red(new Date().toLocaleTimeString()) + ']' +color.yellow(message.replace(/%/g, "")))
+    },
     danmu(sender, message) {
         console.log('[' + color.red(new Date().toLocaleTimeString()) + ']' + color.green(sender) + ':' + color.magenta(message));
     },

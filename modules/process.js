@@ -9,7 +9,11 @@ const allowAiReply = config.get('configInfo.enableAi')
 const liveRoom = config.get('bilibiliInfo.roomId')
 const triggerPrefix = config.get('configInfo.triggerPrefix')
 const enableAiChat = config.get('configInfo.enableAiFunction.enableAiChat')
-
+const enableAutoWelcome = config.get('configInfo.enableAutoWelcome')
+const enableGiftThanks = config.get('configInfo.enableGiftThanks')
+const enableFollowThanks = config.get('configInfo.enableFollowThanks')
+const enableSuperChatThanks = config.get ('configInfo.enableSuperChatThanks')
+const enableNewGuardThanks = config.get ('configInfo.enableNewGuardThanks')
 
 const danmuJob = async (msg) => {//用户发送弹幕后的各项操作
     logger.danmu(msg.info[2][1], msg.info[1])
@@ -17,17 +21,48 @@ const danmuJob = async (msg) => {//用户发送弹幕后的各项操作
 }
 
 
-
-
-
 const giftJob = async (msg) => {//用户送礼后进行的各项操作
-//开发预留
+    logger.gift(msg.data.uname,msg.data.giftName,msg.data.coin_type,msg.data.num)
+}
+
+const joinJob = async (msg) => {
+    logger.userJoin(msg.data.uname)
+}
+
+const guardJoinJob = async (msg) =>{
+    logger.userJoin(msg.data.username)
+}
+
+const infoUpdate = async (fans,fans_club,online) =>{
+    logger.roomRealTimeMessage(fans,fans_club,online)
+}
+
+const aiChatReplyCheck = async (uid, msg) => {//检查AI回复的各项事务并进行针对处理
+    if (msg.substring(0, 1) !== triggerPrefix) {
+        return
+    }//若不能匹配到触发字符，则取消执行
+    if (allowAiReply === false) {
+        return
+    }//若AI回复功能主开关为关闭状态，则取消执行
+    switch (msg.substring(1)) {
+        case'个人信息':
+            //预留
+        break
+        //将来的智能命令预留
+
+        default://默认为AI聊天功能
+            if (enableAiChat === false) {
+                return
+            }//检查是否启用AI聊天
+            await aiReply.replyChat(liveRoom, uid, msg.substring(1))//发送回答
+        break
+    }
+
 }
 
 
-
 const sendFollowThanks = async (user) => {//发送对于新观众的感谢消息
-    if(config.get('configInfo.enableFollowThanks') !== true){
+    if(enableFollowThanks !== true){
         return
     }
     let choice = await randNumber.getNumber(0,config.get('autoMessages.onNewFollower').length)
@@ -37,20 +72,17 @@ const sendFollowThanks = async (user) => {//发送对于新观众的感谢消息
 }
 
 
-
 const sendOnLiveMessage = async () => {//若 configInfo.enableAutoMessages 开启,则此方法被调用时将发送设定好的的自动化消息
     if(config.get('configInfo.enableAutoMessages') !== true){
         return
    }
     let choice = await randNumber.getNumber(0,config.get('autoMessages.onLive').length)
-    await danmu.sendChat(config.get('bilibiliInfo.roomId'),config.get(`autoMessages.onLive.${choice}`,))
+    await danmu.sendChat(liveRoom,config.get(`autoMessages.onLive.${choice}`,))
 }
 
 
-
-
 const sendWelcomeMessage = async (user,lastJoinTime) => {
-    if(config.get('configInfo.enableAutoWelcome') !== true){//若configInfo.enableAutoWelcome未开启,则不欢迎加入的用户
+    if( enableAutoWelcome !== true){//若configInfo.enableAutoWelcome未开启,则不欢迎加入的用户
         return
     }
     if(config.get('autoMessages.onWelcome').length < 1){
@@ -65,7 +97,7 @@ const sendWelcomeMessage = async (user,lastJoinTime) => {
         }
 
         newUser = newUser.replace('(userName)',user)
-        await danmu.sendChat(config.get('bilibiliInfo.roomId'),newUser)
+        await danmu.sendChat(liveRoom,newUser)
         return
     }
 
@@ -86,7 +118,7 @@ const sendWelcomeMessage = async (user,lastJoinTime) => {
         if (table[i+1] > timeSinceLastJoin && table[i + 1] !== undefined && table[i] <= timeSinceLastJoin ){
             let preText = ordered[table[i]]
             preText = preText.replace('(userName)',user)
-            await danmu.sendChat(config.get('bilibiliInfo.roomId'),preText)
+            await danmu.sendChat(liveRoom,preText)
             return
         }
     }
@@ -95,10 +127,9 @@ const sendWelcomeMessage = async (user,lastJoinTime) => {
 }
 
 
-
-
 const sendNewGuardThanks  = async (user,guardLevel) => {
-    if(config.get('configInfo.enableNewGuardThanks') !== true){//若configInfo.enableNewGuardThanks未开启,则不感谢新舰长
+    if(enableNewGuardThanks !== true){//若configInfo.enableNewGuardThanks未开启,则不感谢新舰长
+        logger.debug('配置文件configInfo.enableNewGuardThanks未开启,运行被取消')
         return
     }
 
@@ -112,11 +143,12 @@ const sendNewGuardThanks  = async (user,guardLevel) => {
         return
     }
     pretext = pretext.replace('(userName)',user)
-    await danmu.sendChat(config.get('bilibiliInfo.roomId'),pretext)
+    await danmu.sendChat(liveRoom,pretext)
 }
 
+
 const sendSuperChatThanks = async (user,price) => {//处理醒目留言感谢消息的发送
-    if (config.get('configInfo.enableSuperChatThanks') !== true){
+    if (enableSuperChatThanks !== true){
         return
     }
     if (config.get('autoMessages.onSuperChat').length < 1){//检查配置文件合法性
@@ -138,7 +170,7 @@ const sendSuperChatThanks = async (user,price) => {//处理醒目留言感谢消
         if (table[i+1] > price && table[i + 1] !== undefined && table[i] <= price ){
             let preText = ordered[table[i]]
             preText = preText.replace('(userName)',user)
-            await danmu.sendChat(config.get('bilibiliInfo.roomId'),preText)
+            await danmu.sendChat(liveRoom,preText)
             return
         }
     }
@@ -147,11 +179,8 @@ const sendSuperChatThanks = async (user,price) => {//处理醒目留言感谢消
 }
 
 
-
-
-
 const sendGiftThanks = async (user,giftName,giftCount,giftPrice) => {//处理礼物感谢消息发送
-    if(config.get('configInfo.enableGiftThanks') !== true){
+    if(enableGiftThanks !== true){
         logger.debug('收到礼物,但礼物感谢开关为关闭状态,取消弹幕发送')
         return
     }
@@ -160,7 +189,7 @@ const sendGiftThanks = async (user,giftName,giftCount,giftPrice) => {//处理礼
         return
     }
     if (giftPrice < 10){//若礼物小于10元，则直接算做免费礼物
-        await danmu.sendChat(config.get('bilibiliInfo.roomId'),config.get(`autoMessages.onGiftSend.0`,))
+        await danmu.sendChat(liveRoom,config.get(`autoMessages.onGiftSend.0`,))
         logger.debug('收到免费礼物,已发送弹幕感谢') //在发送后取消继续检查
         return
     }
@@ -181,40 +210,13 @@ const sendGiftThanks = async (user,giftName,giftCount,giftPrice) => {//处理礼
             preText = preText.replace('(userName)',user)
             preText = preText.replace('(giftName)',giftName)
             preText = preText.replace('(giftCount)',giftCount)
-            await danmu.sendChat(config.get('bilibiliInfo.roomId'),preText)
+            await danmu.sendChat(liveRoom,preText)
             return
         }
     }
     logger.debug(`礼物感谢内容获取失败,并未在Json中找到比${giftPrice}还大的配置项,请确认配置文件的正确性`)
     //优化：翻转sort结果并输出最后一个值比输入值小的最大结果
 }
-
-
-const aiChatReplyCheck = async (uid, msg) => {//检查AI回复的各项事务并进行针对处理
-    if (msg.substring(0, 1) !== triggerPrefix) {
-        return
-    }//若不能匹配到触发字符，则取消执行
-    if (allowAiReply === false) {
-        return
-    }//若AI回复功能主开关为关闭状态，则取消执行
-    switch (msg.substring(1)) {
-        case'个人信息':
-            //预留
-            break
-        //将来的智能命令预留
-
-        default://默认为AI聊天功能
-            if (enableAiChat === false) {
-                return
-            }//检查是否启用AI聊天
-            await aiReply.replyChat(liveRoom, uid, msg.substring(1))//发送回答
-            break
-    }
-
-}
-
-
-
 
 
 module.exports = {
@@ -225,5 +227,8 @@ module.exports = {
     sendNewGuardThanks,
     sendSuperChatThanks,
     sendWelcomeMessage,
-    sendFollowThanks
+    sendFollowThanks,
+    joinJob,
+    infoUpdate,
+    guardJoinJob
 }

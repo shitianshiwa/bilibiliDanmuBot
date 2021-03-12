@@ -3,7 +3,7 @@ const auth = require ('../modules/auth')
 const process = require ('../modules/process')
 //定时任务:每天刷新Cookie保持最新
 const getNewCookie = ()=>{
-    onTimer.scheduleJob('* * 1 * * *',async ()=> {
+    onTimer.scheduleJob('0 0 0 * * *',async ()=> { //修正错误,每天0:00:00刷新
         await auth.refreshCookie();
     })
 }

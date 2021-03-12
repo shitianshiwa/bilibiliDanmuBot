@@ -17,6 +17,8 @@ const getOwnerInfo = async () => {
     }
 }
 
+
+
 //根据提供的时间标记获取新的关注者
 const getNewFollower = async (afterThisTime) => {
     const body = await got.get(`https://api.bilibili.com/x/relation/followers?vmid=${config.get('streamInfo.owner')}&pn=1&ps=50&order=desc&order_type=attention&jsonp=jsonp`).json()
