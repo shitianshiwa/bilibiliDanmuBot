@@ -10,6 +10,8 @@ const getOwnerInfo = async () => {
         return {code: body.code, message: body.message}
     } else {
         logger.info(`直播间${config.get('bilibiliInfo.roomId')}信息获取完毕!`)
+        // 直播短号转长号
+        if (body.data.room_id !== config.get('bilibiliInfo.roomId')) config.set('bilibiliInfo.roomId', body.data.room_id)
         config.set('streamInfo.owner', body.data.uid)
         return body
     }
