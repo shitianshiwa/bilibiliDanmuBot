@@ -84,8 +84,8 @@ const sendFollowThanks = async (user) => {//发送对于新观众的感谢消息
     if(enableFollowThanks !== true){
         return
     }
-    let choice = await randNumber.getNumber(0,config.get('autoMessages.onNewFollower').length)
-    let pretext = config.get(`autoMessages.onNewFollower.${choice}`,)
+    let choice = await randNumber.getNumber(1,config.get('autoMessages.onNewFollower').length)
+    let pretext = config.get(`autoMessages.onNewFollower.${choice - 1}`,)
     pretext = pretext.replace('(userName)',user)
     await danmu.sendChat(config.get('bilibiliInfo.roomId'),pretext)
 }
@@ -99,9 +99,7 @@ const sendOnLiveMessage = async () => {//若 configInfo.enableAutoMessages 开�
     if(global.liveStatus !== 1){ //若直播状态不等于直播中
         return
     }
-    let choice = await randNumber.getNumber(0,config.get('autoMessages.onLive').length)
-    logger.debug(choice - 1)
-    logger.debug(config.get('autoMessages.onLive').length)
+    let choice = await randNumber.getNumber(1,config.get('autoMessages.onLive').length)
     await danmu.sendChat(liveRoom,config.get(`autoMessages.onLive.${choice - 1}`,))
 }
 
@@ -244,6 +242,20 @@ const sendGiftThanks = async (user,giftName,giftCount,giftPrice) => {//处理礼
 }
 
 
+const sendOnLiveStart = async ()=>{
+    let message = config.get('autoMessages.onLiveStart')
+    if (message !== ''){
+        await danmu.sendChat(config.get('bilibiliInfo.roomId'),message)
+    }
+}
+
+const sendOnLiveEnd = async ()=>{
+    let message = config.get('autoMessages.onLiveEnd')
+    if (message !== ''){
+        await danmu.sendChat(config.get('bilibiliInfo.roomId'),message)
+    }
+}
+
 module.exports = {
     danmuJob,
     giftJob,
@@ -258,5 +270,7 @@ module.exports = {
     guardJoinJob,
     newGuardJob,
     anchorLotStart,
-    anchorLostEnd
+    anchorLostEnd,
+    sendOnLiveStart,
+    sendOnLiveEnd
 }

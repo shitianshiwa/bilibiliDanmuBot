@@ -89,11 +89,13 @@ function connect (){
             case 'LIVE'://开始直播,并非开始推流,若返回live_key及sub_session_key，则为开播按钮被按下,若仅有live，则为推流开始
                 logger.debug('直播开始!')
                 global.liveStatus = 1
+                await process.sendOnLiveStart()
             break
 
             case 'PREPARING': //直播结束,即使开启了轮播也会返回该消息
                 logger.debug('直播结束!')
                 global.liveStatus = 0
+                await process.sendOnLiveEnd()
             break
 
             default:

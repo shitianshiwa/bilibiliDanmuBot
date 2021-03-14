@@ -39,7 +39,7 @@ const sendImMessage = async (targetUid,message) => {
 
 
 const sendChat = async (liveroom, message) => {
-    let danmu = message.split('\r')
+    let danmu = message.split('\n')
     logger.debug(`多行弹幕划分为${danmu.length}次发送`)
     for (let i = 0; i < danmu.length; i ++){
         await sendSigelChat(liveroom,danmu[i])
