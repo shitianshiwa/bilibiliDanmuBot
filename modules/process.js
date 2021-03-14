@@ -96,7 +96,7 @@ const sendOnLiveMessage = async () => {//若 configInfo.enableAutoMessages 开�
         return
    }
 
-    if(global.liveStatus !== 0){ //若直播状态不等于直播中
+    if(global.liveStatus !== 1){ //若直播状态不等于直播中
         return
     }
     let choice = await randNumber.getNumber(0,config.get('autoMessages.onLive').length)
