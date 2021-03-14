@@ -39,6 +39,20 @@ const sendImMessage = async (targetUid,message) => {
 
 
 const sendChat = async (liveroom, message) => {
+    let danmu = message.split('\r')
+    logger.debug(`多行弹幕划分为${danmu.length}次发送`)
+    for (let i = 0; i < danmu.length; i ++){
+        await sendSigelChat(liveroom,danmu[i])
+        await sleep(1500)//休眠1500毫秒后进行下一次循环
+    }
+}
+
+
+const sleep = function (ms){//一个简易的休眠计时器
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+const sendSigelChat = async (liveroom,message) => {
     let csrf = await cookie('http://bilibili.com', 'bili_jct')
     if (csrf.code !== 0) {
         logger.info('无法获取到Csrf信息,消息发送被取消')
@@ -63,10 +77,10 @@ const sendChat = async (liveroom, message) => {
         logger.debug(`消息发送失败,错误原因[${body.message}]  消息内容[${message}]`)
         return {code: -1, message: body.message}
     } else {
-        //logger.debug(`弹幕消息发送成功,消息内容:${message}`) //成功了就不再打印,感觉头疼
         return {code: 0, message: '消息发送成功!'}
     }
 }
+
 
 const sendGift = async () => {
     //开发预留
@@ -74,5 +88,6 @@ const sendGift = async () => {
 module.exports = {
     sendChat,
     sendGift,
-    sendImMessage
+    sendImMessage,
+    sendSigelChat
 }

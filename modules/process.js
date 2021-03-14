@@ -33,9 +33,28 @@ const guardJoinJob = async (msg) =>{
     logger.userJoin(msg.data.username)
 }
 
+const anchorLotStart = async (msg) => {
+    logger.anchorLotStart(msg.data.award_name,msg.data.award_num)
+}
+
+const anchorLostEnd = async  (msg) => {//天选抽奖完成提示
+    logger.anchorLotEnd()
+    logger.debug(msg)
+}
+
+const newGuardJob = async (msg) =>{ //新的舰长上舰
+    logger.guardBuy(msg.data.username,msg.data.guard_level)
+}
 const infoUpdate = async (fans,fans_club,online) =>{
     logger.roomRealTimeMessage(fans,fans_club,online)
 }
+
+
+
+
+
+
+
 
 const aiChatReplyCheck = async (uid, msg) => {//检查AI回复的各项事务并进行针对处理
     if (msg.substring(0, 1) !== triggerPrefix) {
@@ -77,7 +96,9 @@ const sendOnLiveMessage = async () => {//若 configInfo.enableAutoMessages 开�
         return
    }
     let choice = await randNumber.getNumber(0,config.get('autoMessages.onLive').length)
-    await danmu.sendChat(liveRoom,config.get(`autoMessages.onLive.${choice}`,))
+    logger.debug(choice - 1)
+    logger.debug(config.get('autoMessages.onLive').length)
+    await danmu.sendChat(liveRoom,config.get(`autoMessages.onLive.${choice - 1}`,))
 }
 
 
@@ -230,5 +251,8 @@ module.exports = {
     sendFollowThanks,
     joinJob,
     infoUpdate,
-    guardJoinJob
+    guardJoinJob,
+    newGuardJob,
+    anchorLotStart,
+    anchorLostEnd
 }

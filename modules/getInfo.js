@@ -13,7 +13,7 @@ const getOwnerInfo = async () => {
         // 直播短号转长号
         if (body.data.room_id !== config.get('bilibiliInfo.roomId')) config.set('bilibiliInfo.roomId', body.data.room_id)
         config.set('streamInfo.owner', body.data.uid)
-        return body
+        return {code:0,message:'获取直播间信息完成'}
     }
 }
 
@@ -34,7 +34,7 @@ const getNewFollower = async (afterThisTime) => {
                 newFollower.push(body.data.list[i]);
             }
         }
-        return {code: body.code, data: newFollower}
+        return {code: 0, data: newFollower}
     }
 }
 
@@ -42,8 +42,8 @@ const getNewFollower = async (afterThisTime) => {
 const getAllVideos = async (pageSize) => {  //优化:能否省略第一次的无用请求？复用第一次的请求结果?
     const body = await got.get(`https://api.bilibili.com/x/space/arc/search?mid=${config.get('streamInfo.owner')}&pn=1&ps=1&jsonp=jsonp`).json()
     if (body.code !== 0) {
-        logger.info('获取投稿列表失败,错误信息:' + code.message)
-        return {code: body.code, message: code.message}
+        logger.info('获取投稿列表失败,错误信息:' + body.message)
+        return {code: body.code, message: body.message}
     } else {
         logger.debug(`成功获取到首条视频信息,视频共计${body.data.page.count}个,当前在第${body.data.page.pn}页,分为${Math.ceil(body.data.page.count / pageSize)}页处理,每页上限${pageSize}条记录`)
         const result = []

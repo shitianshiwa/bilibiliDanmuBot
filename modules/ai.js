@@ -13,10 +13,10 @@ const replyChat = async (room, uid, message) => {
     let result = await askAi(uid, message)
     if (result.ResponseText.length > 30) {//若AI给的答案超出长度
         logger.debug(`AI给出的答案超出了限制长度,调用默认回答`)//可以分片发送，但因为有可能出现超长回复，防止刷屏所以关闭
-        await danmu.sendChat(room, '我没明白你的问题....')
+        await danmu.sendSigelChat(room, '我没明白你的问题....')
         return
     }
-    await danmu.sendChat(room, result.ResponseText)
+    await danmu.sendSigelChat(room, result.ResponseText)
 }
 
 module.exports = {

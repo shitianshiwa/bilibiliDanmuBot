@@ -34,7 +34,7 @@ function connect (){
             break
 
             case 'GUARD_BUY': //舰长购买消息-需要交给process.js
-                logger.debug(`用户${msg.data.username}上船,所购买的舰长等级:${msg.data.guard_level}`)
+                await process.newGuardJob(msg)
             break
 
             case 'INTERACT_WORD'://房间用户进入
@@ -46,12 +46,11 @@ function connect (){
             break
 
             case 'ANCHOR_LOT_START':  //天选抽奖标签
-                logger.debug(`天选抽奖开始,奖励:${msg.data.award_name} 数量:${msg.data.award_num}`)
+                await process.anchorLotStart(msg)
             break
 
             case 'ANCHOR_LOT_END':  //天选抽奖结束
-                logger.debug(`天选抽奖结束!!!!`)
-                logger.debug(JSON.stringify(msg))
+                await process.anchorLostEnd(msg)
             break
 
             case 'ENTRY_EFFECT'://特殊用户进入房间,作用未知
@@ -77,6 +76,10 @@ function connect (){
 
             case 'HOT_RANK_CHANGED': //热门榜单更新
                 logger.debug('收到热门榜单更新消息,不进行处理')
+            break
+
+            case 'ONLINE_RANK_TOP3'://高能榜前三公告消息
+                logger.debug('收到高能榜前三公告消息,不进行处理')
             break
 
             case 'ROOM_REAL_TIME_MESSAGE_UPDATE'://房间实时消息更新
