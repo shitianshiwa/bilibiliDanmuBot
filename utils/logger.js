@@ -25,6 +25,9 @@ module.exports = {
     anchorLotStart(award, award_number) {
         console.log('[' + color.red(new Date().toLocaleTimeString()) + ']' + '天选抽奖开始，奖励' + color.green(award) + '数量' + color.red(award_number));
     },
+    anchorLotEnd(){
+        console.log('[' + color.red(new Date().toLocaleTimeString()) + ']' + '天选抽奖结束!!!!');
+    },
     debug(message) {
         if (config.get('configInfo.debug')) {
             console.log('[' + color.bold(color.red('DEBUG')) + ']' + color.yellow(message));
