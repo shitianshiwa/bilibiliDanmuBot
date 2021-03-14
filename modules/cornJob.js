@@ -1,7 +1,7 @@
 const onTimer = require('node-schedule')
 const auth = require ('../modules/auth')
-const process = require ('../modules/process')
 const logger = require ('../utils/logger')
+const reply = require('./sendreply')
 
 //定时任务:每天刷新Cookie保持最新
 const getNewCookie = ()=>{
@@ -23,7 +23,7 @@ const getVideoInfo = ()=>{
 const sendOnLiveMessage = ()=>{
     onTimer.scheduleJob('0 0,10,20,30,40,50 * * * *',async ()=>{//每十分钟发送一次
         logger.debug('执行定时消息发送....')
-        await process.sendOnLiveMessage()
+        await reply.sendOnLiveMessage()
     })
 }
 

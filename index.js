@@ -31,7 +31,7 @@ async function main(){
         }
     }
     //timer.getVideoInfo();
-    //timer.getNewCookie();
+    timer.getNewCookie();
     timer.sendOnLiveMessage()
     const info = await getInfo.getOwnerInfo()
     if (info.code!== 0) {

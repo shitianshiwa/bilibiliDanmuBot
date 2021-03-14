@@ -50,7 +50,7 @@ function connect (){
             break
 
             case 'ANCHOR_LOT_END':  //天选抽奖结束
-                await process.anchorLostEnd(msg)
+                await process.anchorLotEnd(msg)
             break
 
             case 'ENTRY_EFFECT'://特殊用户进入房间,作用未知
