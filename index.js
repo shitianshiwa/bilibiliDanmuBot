@@ -33,6 +33,12 @@ async function main(){
     //timer.getVideoInfo();
     //timer.getNewCookie();
     timer.sendOnLiveMessage()
-    await getInfo.getOwnerInfo();
+    const info = await getInfo.getOwnerInfo()
+    if (info.code!== 0) {
+        return
+    }else {
+        global.liveStatus = info.data.live_status
+    }
+
     live.connect();
 }
