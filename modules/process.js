@@ -26,7 +26,7 @@ const joinJob = async (msg) => {
 }
 
 const superChatJob = async (msg) =>{
-    logger.superChatMessage(msg.data.user_info.uname,mag.data.message,msg.data.price)
+    logger.superChatMessage(msg.data.user_info.uname,msg.data.message,msg.data.price)
     await reply.sendSuperChatThanks(msg.data.user_info.uname,msg.data.price)
 }
 //高能榜或舰长进入直播间

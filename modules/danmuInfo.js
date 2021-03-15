@@ -29,6 +29,10 @@ function connect (){
                 await process.superChatJob(msg)
             break
 
+            case 'SUPER_CHAT_MESSAGE_JPN':
+                //跳过
+            break
+
             case 'SEND_GIFT':
                 //礼物发送消息
                 await process.giftJob(msg)
