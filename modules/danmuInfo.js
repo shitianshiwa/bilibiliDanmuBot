@@ -42,12 +42,19 @@ function connect (){
                 await process.newGuardJob(msg)
             break
 
+            //舰长续费消息,包含订单信息,用户名,舰长等级,
+            case 'USER_TOAST_MSG':
+                //todo:将此键值统一发送到舰长续费字段
+            break
+
             case 'INTERACT_WORD'://房间用户进入
                 await process.joinJob(msg)
+                //TODO:进入信息可能包含用户来源,如星光推广,热门榜单等特殊说明,数据库编辑时请务必注意
             break
 
             case 'WELCOME_GUARD'://大航海用户进入直播间
                 await process.guardJoinJob(msg)
+                logger.debug(JSON.stringify(msg))
             break
 
             case 'ANCHOR_LOT_START':  //天选抽奖标签
@@ -58,7 +65,8 @@ function connect (){
                 await process.anchorLotEnd(msg)
             break
 
-            case 'ENTRY_EFFECT'://特殊用户进入房间,作用未知
+            //高能榜或舰长用户进入直播间
+            case 'ENTRY_EFFECT':
                 await process.guardJoinJob(msg)
             break
 
@@ -68,11 +76,31 @@ function connect (){
             break
 
             case 'ONLINE_RANK_V2': //人气排行榜v2版更新消息
-                logger.debug('收到在线排行榜更新消息,不进行处理')
+                logger.debug('收到高能榜更新消息,不进行处理')
             break
 
             case 'ONLINE_RANK_COUNT': //人气排行榜当前所在位数
-                logger.debug(`主播当前在天梯排行榜第 ${msg.data.count} 位!`)
+                logger.info(`高能榜更新,当前有${msg.data.count}个用户在榜上`)
+            break
+
+            case 'PK_BATTLE_PRE':
+                //PK大乱斗准备开始,本条弃用
+            break
+
+            case 'PK_BATTLE_PRE_NEW':
+                //PK大乱斗准备开始,会返回对方主播用户名等信息
+                logger.debug(`大乱斗匹配完成,对方UID${msg.data.uname},房间号${msg.data.room_id}`)
+                await process.pkPreJob(msg)
+            break
+
+            case 'PK_BATTLE_START_NEW':
+                //PK大乱斗开始
+                logger.debug(`PK大乱斗开始,编号${msg.pk_id}`)
+                await process.pkStartJob()
+            break
+
+            case 'PK_BATTLE_START':
+                //PK大乱斗开始消息,暂不使用,因为有NEW
             break
 
             case 'PK_BATTLE_PROCESS':
@@ -80,23 +108,24 @@ function connect (){
             break
 
             case 'PK_BATTLE_PROCESS_NEW':
-                //这里是大乱斗过程中的更新消息
+                logger.info(`大乱斗进度更新,本直播间点数${msg.data.init_info.votes},对方直播间点数${msg.data.match_info.votes}`)
             break
 
             case 'PK_BATTLE_END':
-                logger.debug('PK大乱斗结束.')
+                //这里是大乱斗结束标识
             break
 
             case 'PK_BATTLE_SETTLE_USER':
                 //PK结果信息
+                await process.pkEndJob(msg)
+            break
+
+            case 'PK_BATTLE_SETTLE':
+                //PK通告信息
             break
 
             case 'PK_BATTLE_SETTLE_V2':
                 //PK结果信息V2
-            break
-
-            case '"PK_BATTLE_SETTLE_USER':
-                //PK结果信息全面展示
             break
 
             case 'WIDGET_BANNER': //直播间顶部推广消息更新
@@ -127,10 +156,19 @@ function connect (){
                 await process.liveEndJob()
             break
 
+            //房间信息信息发生更新时会接受到此信息,包含房间标题及分区等
+            case 'ROOM_CHANGE':
+                logger.info(`房间信息发生更新,房间名称: ${msg.data.title} ,房间主分区: ${msg.data.parent_area_name} ,房间子分区: ${msg.data.area_name}`)
+            break
+
+            //SuperChat启用或关闭时会接收到此消息,Status为0时未关闭,常见于学习等分区,1为开启,常见于娱乐分区
+            case 'SUPER_CHAT_ENTRANCE':
+                logger.debug(`SuperChat的启用状态发生变化,当前状态:${msg.data.status},0为关闭1为打开`)
+            break
+
             default:
                 logger.debug(JSON.stringify(msg))
             break
-            //TODO:完成SuperChat的事件处理
         }
 
     })

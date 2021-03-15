@@ -1,0 +1,12 @@
+{
+  "cmd": "ROOM_CHANGE",
+  "data": {
+    "title": "玩会儿玩会儿",
+    "area_id": 86,
+    "parent_area_id": 2,
+    "area_name": "英雄联盟",
+    "parent_area_name": "网游",
+    "live_key": "129686069351480645",
+    "sub_session_key": "129686069351480645sub_time:1615798624"
+  }
+}

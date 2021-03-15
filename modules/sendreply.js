@@ -101,7 +101,6 @@ const sendNewGuardThanks  = async (user,guardLevel) => {
     await danmu.sendChat(liveRoom,pretext)
 }
 
-
 const sendSuperChatThanks = async (user,price) => {//处理醒目留言感谢消息的发送
     if (enableSuperChatThanks !== true){
         return
@@ -205,7 +204,39 @@ const sendOnAnchorLotEnd = async () =>{
 }
 
 const quickClip = async () =>{
-    await danmu.sendSigelChat('极速切片已启动,录像时长:一分钟')
+    await danmu.sendSigelChat(liveRoom,'极速切片已启动,录像时长:一分钟')
+}
+
+const sendOnPkStart = async () =>{
+    await danmu.sendChat(liveRoom,config.get('autoMessages.onPkStart'))
+}
+
+const sendOnPkPre = async (userName) => {
+    let message = config.get('autoMessages.onPkPre')
+    await danmu.sendChat(config.get('bilibiliInfo.roomId'),message.replace('(userName)',userName))
+}
+
+//发送大乱斗结束消息,Status为0时为输,为1时为胜利,为2为平局
+const sendOnPkEnd = async (status,supporter) => {
+    //若最佳支持者不存在,取消发送
+    if (supporter === ''){return}
+    //判断胜负状态
+    switch (status){
+        case 1:
+            let winMessage = config.get('autoMessages.onPkEndWin')
+            await danmu.sendChat(liveRoom,winMessage.replace('(userName)',supporter))
+        break
+
+        case 0:
+            let lostMessage = config.get('autoMessages.onPkEndLost')
+            await danmu.sendChat(liveRoom,lostMessage.replace('(userName)',supporter))
+        break
+
+        default:
+            let drawMessage = config.get('autoMessages.onPkEndDraw')
+            await danmu.sendChat(liveRoom,drawMessage.replace('(userName)',supporter))
+        break
+    }
 }
 
 module.exports = {
@@ -219,5 +250,8 @@ module.exports = {
     sendOnLiveEnd,
     sendOnAnchorLotStart,
     sendOnAnchorLotEnd,
-    quickClip
+    quickClip,
+    sendOnPkPre,
+    sendOnPkStart,
+    sendOnPkEnd
 }

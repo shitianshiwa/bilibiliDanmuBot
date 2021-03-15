@@ -8,6 +8,7 @@ const allowAiReply = config.get('configInfo.enableAi')
 const liveRoom = config.get('bilibiliInfo.roomId')
 const triggerPrefix = config.get('configInfo.triggerPrefix')
 const enableAiChat = config.get('configInfo.enableAiFunction.enableAiChat')
+const enablePkTrack = config.get('configInfo.enablePkTrackMessageSend')
 
 const danmuJob = async (msg) => {//用户发送弹幕后的各项操作
     logger.danmu(msg.info[2][1], msg.info[1])
@@ -28,7 +29,7 @@ const superChatJob = async (msg) =>{
     logger.superChatMessage(msg.data.user_info.uname,mag.data.message,msg.data.price)
     await reply.sendSuperChatThanks(msg.data.user_info.uname,msg.data.price)
 }
-//舰长进入直播间
+//高能榜或舰长进入直播间
 const guardJoinJob = async (msg) =>{
     logger.guardJoin(msg.data.copy_writing)
 }
@@ -57,6 +58,48 @@ const liveStartJob = async () =>{
 
 const liveEndJob = async () =>{
     await reply.sendOnLiveEnd()
+}
+
+
+const pkPreJob = async (msg) =>{
+    logger.info(`大乱斗匹配完成,目标:${msg.data.uname},房间号${msg.data.room_id}`)
+    if (enablePkTrack === true){
+        await reply.sendOnPkPre(msg.data.uname)
+    }
+}
+
+const pkStartJob = async () =>{
+    logger.info('大乱斗PK开始!')
+    if (enablePkTrack === true ){
+        await reply.sendOnPkStart()
+    }
+}
+
+//大乱斗结束操作,判断胜负并转交给消息发送
+const pkEndJob = async (msg) => {
+    //判断是否是当前直播间为胜利者
+    if (enablePkTrack !== true){
+        return
+    }
+
+    if(msg.data.winner !== null){
+
+        switch (msg.data.winner.room_id){
+
+            case msg.data.my_info.room_id:
+                logger.info(`大乱斗已结束,胜者: ${msg.data.winner.uname} ! 最佳助攻观众:${msg.data.winner.best_user.uname}`)
+                await reply.sendOnPkEnd(1,msg.data.my_info.best_user.uname)
+            break
+            //若不等于本房间房间号则为失败
+            default:
+                logger.info(`大乱斗已结束,胜者: ${msg.data.winner.uname} ! 最佳助攻观众:${msg.data.winner.best_user.uname}`)
+                await reply.sendOnPkEnd(0,msg.data.my_info.best_user.uname)
+            break
+        }
+    }else{
+        logger.info(`大乱斗已结束,平局!`)
+        await reply.sendOnPkEnd(2,msg.data.my_info.best_user.uname)
+    }
 }
 
 const infoUpdate = async (fans,fans_club,online) =>{
@@ -107,5 +150,8 @@ module.exports = {
     anchorLotEnd,
     liveEndJob,
     liveStartJob,
+    pkPreJob,
+    pkStartJob,
+    pkEndJob,
     superChatJob
 }
