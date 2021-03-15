@@ -15,7 +15,7 @@ const getNewCookie = ()=>{
 const getVideoInfo = ()=>{
     onTimer.scheduleJob('1 * * * * *',async ()=>{
        logger.debug('开始执行视频信息获取...')
-        //开发预留...
+        //TODO:加入视频获取功能
     })
 }
 

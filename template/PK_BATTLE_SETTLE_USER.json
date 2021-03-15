@@ -1,0 +1,123 @@
+{
+  "cmd": "PK_BATTLE_SETTLE_USER",
+  "pk_id": 201405626,
+  "pk_status": 401,
+  "settle_status": 1,
+  "timestamp": 1615794592,
+  "data": {
+    "pk_id": "201405626",
+    "season_id": 33,
+    "settle_status": 1,
+    "result_type": "2",
+    "battle_type": 0,
+    "result_info": {
+      "total_score": 9590,
+      "result_type_score": 9590,
+      "pk_votes": 7992,
+      "pk_votes_name": "乱斗值",
+      "pk_crit_score": -1,
+      "pk_resist_crit_score": -1,
+      "pk_extra_score_slot": "",
+      "pk_extra_value": 0,
+      "pk_extra_score": 0,
+      "pk_task_score": 0,
+      "pk_times_score": 0,
+      "pk_done_times": 4,
+      "pk_total_times": -1,
+      "win_count": 2,
+      "win_final_hit": -1,
+      "winner_count_score": 0,
+      "task_score_list": [
+
+      ]
+    },
+    "winner": {
+      "room_id": 21328616,
+      "uid": 408734939,
+      "uname": "丢嘤嘤",
+      "face": "http://i2.hdslb.com/bfs/face/364b489cbc7252f91062fd95fe350069d81d662f.jpg",
+      "face_frame": "https://i0.hdslb.com/bfs/vc/dfc39dc9bbc0e01aabdca9344346016d759c2414.png",
+      "exp": {
+        "color": 5805790,
+        "user_level": 25,
+        "master_level": {
+          "color": 16746162,
+          "level": 32
+        }
+      },
+      "best_user": {
+        "uid": 74591,
+        "uname": "八宫巡",
+        "face": "http://i2.hdslb.com/bfs/face/255ae4430aa49d3c4f52c31f4ebb16a595f227a5.jpg",
+        "pk_votes": 7992,
+        "pk_votes_name": "乱斗值",
+        "exp": {
+          "color": 6406234,
+          "level": 7
+        },
+        "face_frame": "http://i0.hdslb.com/bfs/live/ceb8e7fc5e207b8e6219c9917e3ef1b22f3df61a.png",
+        "badge": {
+          "url": "http://i0.hdslb.com/bfs/live/b5e9ebd5ddb979a482421ca4ea2f8c1cc593370b.png",
+          "desc": "",
+          "position": 3
+        },
+        "award_info": null,
+        "award_info_list": [
+
+        ],
+        "end_win_award_info_list": {
+          "list": [
+
+          ]
+        }
+      }
+    },
+    "my_info": {
+      "room_id": 21328616,
+      "uid": 408734939,
+      "uname": "丢嘤嘤",
+      "face": "http://i2.hdslb.com/bfs/face/364b489cbc7252f91062fd95fe350069d81d662f.jpg",
+      "face_frame": "https://i0.hdslb.com/bfs/vc/dfc39dc9bbc0e01aabdca9344346016d759c2414.png",
+      "exp": {
+        "color": 5805790,
+        "user_level": 25,
+        "master_level": {
+          "color": 16746162,
+          "level": 32
+        }
+      },
+      "best_user": {
+        "uid": 74591,
+        "uname": "八宫巡",
+        "face": "http://i2.hdslb.com/bfs/face/255ae4430aa49d3c4f52c31f4ebb16a595f227a5.jpg",
+        "pk_votes": 7992,
+        "pk_votes_name": "乱斗值",
+        "exp": {
+          "color": 6406234,
+          "level": 7
+        },
+        "face_frame": "http://i0.hdslb.com/bfs/live/ceb8e7fc5e207b8e6219c9917e3ef1b22f3df61a.png",
+        "badge": {
+          "url": "http://i0.hdslb.com/bfs/live/b5e9ebd5ddb979a482421ca4ea2f8c1cc593370b.png",
+          "desc": "",
+          "position": 3
+        },
+        "award_info": null,
+        "award_info_list": [
+
+        ],
+        "end_win_award_info_list": {
+          "list": [
+
+          ]
+        }
+      }
+    },
+    "level_info": {
+      "first_rank_name": "苍穹主宰",
+      "second_rank_num": 0,
+      "first_rank_img": "https://i0.hdslb.com/bfs/live/b5a945042487e4cc13d4f6991d4b18fed9395315.png",
+      "second_rank_icon": ""
+    }
+  }
+}

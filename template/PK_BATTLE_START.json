@@ -1,0 +1,18 @@
+{
+  "cmd": "PK_BATTLE_START",
+  "pk_id": 201405998,
+  "pk_status": 201,
+  "timestamp": 1615795831,
+  "data": {
+    "battle_type": 1,
+    "final_hit_votes": 0,
+    "pk_start_time": 1615795831,
+    "pk_frozen_time": 1615796131,
+    "pk_end_time": 1615796141,
+    "pk_votes_type": 0,
+    "pk_votes_add": 0,
+    "pk_votes_name": "乱斗值",
+    "star_light_msg": "本场获胜最多可得100实时星光哦"
+  },
+  "roomid": "195909"
+}

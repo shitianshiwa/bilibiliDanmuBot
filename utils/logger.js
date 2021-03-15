@@ -2,8 +2,11 @@ const color = require('colors')
 const config = require('./config')
 
 module.exports = {
+    guardJoin(message){
+        console.log('[' + color.red(new Date().toLocaleTimeString()) + ']' +color.yellow(message.replace(/%/g, "")))
+    },
     userJoin(user){
-        console.log('[' + color.red(new Date().toLocaleTimeString()) + `]`+color.cyan(user)+`加入直播间!`)
+        console.log('[' + color.red(new Date().toLocaleTimeString()) + `]`+color.red(user)+color.cyan(`加入直播间!`))
     },
     noticeMsg(message){
         console.log('[' + color.red(new Date().toLocaleTimeString()) + ']' +color.yellow(message.replace(/%/g, "")))
@@ -23,10 +26,10 @@ module.exports = {
         console.log('[' + color.red(new Date().toLocaleTimeString()) + ']' + '被动信息更新:粉丝数' + color.green(fans) + ',粉丝团成员数' + color.red(fans_club) + '当前房间人气' + color.yellow(online));
     },
     anchorLotStart(award, award_number) {
-        console.log('[' + color.red(new Date().toLocaleTimeString()) + ']' + '天选抽奖开始，奖励' + color.green(award) + '数量' + color.red(award_number));
+        console.log('[' + color.red(new Date().toLocaleTimeString()) + ']' + color.yellow('天选抽奖开始，奖励') + color.green(award) + '数量' + color.red(award_number));
     },
     anchorLotEnd(){
-        console.log('[' + color.red(new Date().toLocaleTimeString()) + ']' + '天选抽奖结束!!!!');
+        console.log('[' + color.red(new Date().toLocaleTimeString()) + ']' +color.yellow( '天选抽奖结束!!!!'));
     },
     debug(message) {
         if (config.get('configInfo.debug')) {

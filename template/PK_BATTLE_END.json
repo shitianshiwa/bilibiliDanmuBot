@@ -1,0 +1,22 @@
+{
+  "cmd": "PK_BATTLE_END",
+  "pk_id": "201405626",
+  "pk_status": 401,
+  "timestamp": 1615794592,
+  "data": {
+    "battle_type": 1,
+    "timer": 10,
+    "init_info": {
+      "room_id": 3859685,
+      "votes": 0,
+      "winner_type": -1,
+      "best_uname": ""
+    },
+    "match_info": {
+      "room_id": 21328616,
+      "votes": 7992,
+      "winner_type": 2,
+      "best_uname": "八宫巡"
+    }
+  }
+}

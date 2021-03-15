@@ -32,7 +32,7 @@ async function main(){
     }
     //timer.getVideoInfo();
     timer.getNewCookie();
-    timer.sendOnLiveMessage()
+    //timer.sendOnLiveMessage()
     const info = await getInfo.getOwnerInfo()
     if (info.code!== 0) {
         return

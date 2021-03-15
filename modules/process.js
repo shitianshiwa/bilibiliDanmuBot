@@ -14,17 +14,23 @@ const danmuJob = async (msg) => {//用户发送弹幕后的各项操作
     await aiChatReplyCheck(msg.info[2][0], msg.info[1])
 }
 
-
 const giftJob = async (msg) => {//用户送礼后进行的各项操作
     logger.gift(msg.data.uname,msg.data.giftName,msg.data.coin_type,msg.data.num)
+    //TODO:将gift的信息集合后进行推送-或一定时间内仅发送一次礼物感谢消息
 }
 
 const joinJob = async (msg) => {
     logger.userJoin(msg.data.uname)
+    //TODO:在用户进入时，获取时间差并进行自动化欢迎语的调用
 }
 
+const superChatJob = async (msg) =>{
+    logger.superChatMessage(msg.data.user_info.uname,mag.data.message,msg.data.price)
+    await reply.sendSuperChatThanks(msg.data.user_info.uname,msg.data.price)
+}
+//舰长进入直播间
 const guardJoinJob = async (msg) =>{
-    logger.userJoin(msg.data.username)
+    logger.guardJoin(msg.data.copy_writing)
 }
 
 const anchorLotStart = async (msg) => {
@@ -32,7 +38,9 @@ const anchorLotStart = async (msg) => {
     await reply.sendOnAnchorLotStart()
 }
 
-const anchorLotEnd = async  (msg) => {//天选抽奖完成提示
+
+//天选抽奖完成提示
+const anchorLotEnd = async  (msg) => {
     logger.anchorLotEnd()
     logger.debug(msg)
     await reply.sendOnAnchorLotEnd()
@@ -42,6 +50,15 @@ const newGuardJob = async (msg) =>{ //新的舰长上舰
     logger.guardBuy(msg.data.username,msg.data.guard_level)
     await reply.sendNewGuardThanks(msg.data.username,msg.data.guard_level)
 }
+
+const liveStartJob = async () =>{
+    await reply.sendOnLiveStart()
+}
+
+const liveEndJob = async () =>{
+    await reply.sendOnLiveEnd()
+}
+
 const infoUpdate = async (fans,fans_club,online) =>{
     logger.roomRealTimeMessage(fans,fans_club,online)
 }
@@ -56,16 +73,23 @@ const aiChatReplyCheck = async (uid, msg) => {
         return
     }//若AI回复功能主开关为关闭状态，则取消执行
     switch (msg.substring(1)) {
-        case'个人信息':
+        case '个人信息':
             //预留
+        break
+
+        case '极速切片':
+            await reply.quickClip()
         break
         //将来的智能命令预留
 
-        default://默认为AI聊天功能
+        //默认为AI聊天功能
+        default:
+            //检查是否启用AI聊天
             if (enableAiChat === false) {
                 return
-            }//检查是否启用AI聊天
-            await aiReply.replyChat(liveRoom, uid, msg.substring(1))//发送回答
+            }
+            //调用AI发送回答
+            await aiReply.replyChat(liveRoom, uid, msg.substring(1))
         break
     }
 
@@ -81,4 +105,7 @@ module.exports = {
     newGuardJob,
     anchorLotStart,
     anchorLotEnd,
+    liveEndJob,
+    liveStartJob,
+    superChatJob
 }

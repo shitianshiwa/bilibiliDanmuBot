@@ -204,6 +204,10 @@ const sendOnAnchorLotEnd = async () =>{
     await danmu.sendChat(config.get('bilibiliInfo.roomId'),config.get('autoMessages.onAnchorLotEnd'))
 }
 
+const quickClip = async () =>{
+    await danmu.sendSigelChat('极速切片已启动,录像时长:一分钟')
+}
+
 module.exports = {
     sendFollowThanks,
     sendOnLiveMessage,
@@ -214,5 +218,6 @@ module.exports = {
     sendOnLiveStart,
     sendOnLiveEnd,
     sendOnAnchorLotStart,
-    sendOnAnchorLotEnd
+    sendOnAnchorLotEnd,
+    quickClip
 }

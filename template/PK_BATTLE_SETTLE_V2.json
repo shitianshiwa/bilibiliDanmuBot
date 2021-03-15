@@ -1,0 +1,35 @@
+{
+  "cmd": "PK_BATTLE_SETTLE_V2",
+  "pk_id": 201405626,
+  "pk_status": 401,
+  "settle_status": 1,
+  "timestamp": 1615794592,
+  "data": {
+    "pk_id": "201405626",
+    "season_id": 33,
+    "pk_type": "1",
+    "result_type": 2,
+    "result_info": {
+      "total_score": 9590,
+      "pk_votes": 7992,
+      "pk_votes_name": "乱斗值",
+      "pk_extra_value": 1332
+    },
+    "level_info": {
+      "uid": "408734939",
+      "first_rank_name": "苍穹主宰",
+      "second_rank_num": 0,
+      "first_rank_img": "https://i0.hdslb.com/bfs/live/b5a945042487e4cc13d4f6991d4b18fed9395315.png",
+      "second_rank_icon": ""
+    },
+    "assist_list": [
+      {
+        "id": 74591,
+        "uname": "八宫巡",
+        "face": "http://i2.hdslb.com/bfs/face/255ae4430aa49d3c4f52c31f4ebb16a595f227a5.jpg",
+        "score": 7992
+      }
+    ],
+    "star_light_msg": "本场胜利，恭喜获得53实时星光奖励"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "cmd": "PK_BATTLE_PROCESS_NEW",
+  "pk_id": 201405509,
+  "pk_status": 201,
+  "timestamp": 1615793963,
+  "data": {
+    "battle_type": 1,
+    "init_info": {
+      "room_id": 9863884,
+      "votes": 0,
+      "best_uname": ""
+    },
+    "match_info": {
+      "room_id": 870004,
+      "votes": 21,
+      "best_uname": "白羊de棒棒糖"
+    }
+  }
+}
